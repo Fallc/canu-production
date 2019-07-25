@@ -52,7 +52,7 @@ class Post_Questionnaire extends React.Component {
                 de:
                   "Bitte nennen Sie nun die drei kreativsten Leistungen/Errungenschaften Ihres Lebens. Wählen Sie jene Leistungen aus, die einer anderen Person am ehesten ermöglichen, Ihre Kreativität einzuschätzen. Ihre Antworten können auch aus anderen Bereichen als denen im vorangehenden Fragebogen kommen. Nennen Sie erst Ihre kreativste Leistung, dann die zweit-kreativste Leistung, und so weiter. Beschreiben Sie bitte jede Leistung mit einem kurzen prägnanten Satz in den entsprechenden untenstehenden Feldern. Wenn es weniger als drei relevante Leistungen geben sollte, lassen Sie die verbleibenden Felder einfach frei."
               },
-              isRequired: false,
+              isRequired: this.state.requiredQ,
               items: [
                 {
                   name: "text1",
@@ -315,10 +315,6 @@ class Post_Questionnaire extends React.Component {
                 "Wie gut schätzen Sie Ihre Fähigkeiten in den folgenden Spielen ein?",
               columns: [
                 {
-                  value: "0",
-                  text: "ich kenne das Spiel nicht"
-                },
-                {
                   value: "1",
                   text: "schlecht"
                 },
@@ -337,6 +333,10 @@ class Post_Questionnaire extends React.Component {
                 {
                   value: "5",
                   text: "gut"
+                },
+                {
+                  value: "0",
+                  text: "ich kenne das Spiel nicht"
                 }
               ],
               rows: [
@@ -423,7 +423,7 @@ class Post_Questionnaire extends React.Component {
               isRequired: this.state.requiredQ,
               title: {
                 de:
-                  "Möchten Sie, dass wir Ihnen nach Abschluss unserer Studie Ihren Kreativitätsscore mitteilen? Dieser wird basierend auf der Blocks- und der Neue Wörter-Aufgabe bestimmt."
+                  "Möchten Sie, dass wir Ihnen nachträglich nach Abschluss der Studie und Auswertung aller Probanden Ihren Kreativitätsscore mitteilen? Dieser wird basierend auf der Blocks- und der Neue Wörter-Aufgabe bestimmt."
               },
               choices: [
                 {
@@ -474,10 +474,15 @@ class Post_Questionnaire extends React.Component {
               ]
             },
             {
+              type: "text",
+              name: "comment",
+              title: "Haben Sie noch Anmerkungen zu dieser Studie?"
+            },
+            {
               type: "html",
               name: "info_Rückfragen",
               html:
-                "Für Rückfragen oder Anmerkungen stehen wir Ihnen gerne zur Verfügung: Lorenz Prasch (lorenz.prasch@tum.de)"
+                "Für Fragen stehen wir Ihnen gerne zur Verfügung: Lorenz Prasch (lorenz.prasch@tum.de)"
             }
           ]
         }
@@ -488,7 +493,7 @@ class Post_Questionnaire extends React.Component {
         de: "Weiter"
       },
       completeText: {
-        de: "Weiter"
+        de: "Ende"
       },
       requiredText: ""
     };
@@ -522,7 +527,7 @@ class Post_Questionnaire extends React.Component {
     var onCompleteComponent = this.state.isCompleted
       ? this.props.incrementSequenceCounter()
       : // this.props.history.push("/finished")
-      null;
+        null;
 
     return (
       <div>

@@ -15,40 +15,42 @@ class StudySequence extends React.Component {
   };
 
   constructor() {
-    super()
+    super();
 
     const componentArray = [
-      {
-        type: Tasks,
-        props: {
-          tasks: this.state.tasks,
-          incrementSequenceCounter: this.incrementSequenceCounter,
-          count: this.state.count
-        }
-      },
-      {
-        type: APM,
-        props: {
-          incrementSequenceCounter: this.incrementSequenceCounter,
-          count: this.state.count
-        }
-      },
-      {
-        type: ICAA,
-        props: {
-          incrementSequenceCounter: this.incrementSequenceCounter,
-          count: this.state.count
-        }
-      }
-    ]
-
+      // {
+      //   type: Tasks,
+      //   props: {
+      //     tasks: this.state.tasks,
+      //     incrementSequenceCounter: this.incrementSequenceCounter,
+      //     count: this.state.count
+      //   }
+      // },
+      // // {
+      // //   type: APM,
+      // //   props: {
+      // //     incrementSequenceCounter: this.incrementSequenceCounter,
+      // //     count: this.state.count
+      // //   }
+      // // },
+      // {
+      //   type: ICAA,
+      //   props: {
+      //     incrementSequenceCounter: this.incrementSequenceCounter,
+      //     count: this.state.count
+      //   }
+      // }
+    ];
 
     const shuffledArray = this.shuffle(componentArray);
 
     this.state.shuffledArray = shuffledArray.map(
-      (componentConstructor, index) => React.createElement(componentConstructor.type, { ...componentConstructor.props, index })
+      (componentConstructor, index) =>
+        React.createElement(componentConstructor.type, {
+          ...componentConstructor.props,
+          index
+        })
     );
-
   }
 
   incrementSequenceCounter = () => {
@@ -66,36 +68,47 @@ class StudySequence extends React.Component {
       arr[j] = temp;
     }
     return arr;
-  };
+  }
 
   renderSwitch() {
     const { count } = this.state;
-    console.log(this.state.shuffledArray)
+    console.log(this.state.shuffledArray);
 
     switch (count) {
       case 1:
         return (
-          this.state.shuffledArray[0]
-        )
+          <Tasks
+            tasks={this.state.tasks}
+            incrementSequenceCounter={this.incrementSequenceCounter}
+            count={this.state.count}
+          />
+        );
       case 2:
         return (
-          this.state.shuffledArray[1]
-        )
+          <ICAA
+            incrementSequenceCounter={this.incrementSequenceCounter}
+            count={this.state.count}
+          />
+        );
       case 3:
         return (
-          this.state.shuffledArray[2]
-        )
+          <APM
+            incrementSequenceCounter={this.incrementSequenceCounter}
+            count={this.state.count}
+          />
+        );
       case 4:
         return (
-          <PostQuestionnaire incrementSequenceCounter={this.incrementSequenceCounter} />
-        )
+          <PostQuestionnaire
+            incrementSequenceCounter={this.incrementSequenceCounter}
+          />
+        );
       case 5:
-        this.props.history.push("/finished")
+        this.props.history.push("/finished");
     }
   }
 
   render() {
-
     return (
       <div>
         <ProgressBar
@@ -104,8 +117,7 @@ class StudySequence extends React.Component {
         />
         {this.renderSwitch()}
       </div>
-    )
-
+    );
 
     // return (
 
